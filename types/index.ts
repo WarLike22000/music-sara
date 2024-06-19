@@ -32,14 +32,14 @@ export  interface EmptyStateProps {
 };
 
 export interface PodcastDetailPlayerProps {
-    audioUrl: string;
+    audioUrl?: string;
     podcastTitle: string;
     author: string;
     isOwner: boolean;
-    imageUrl: string;
+    imageUrl?: string;
     podcastId: Id<"podcasts">;
-    imageStorageId: Id<"_storage">;
-    audioStorageId: Id<"_storage">;
+    imageStorageId?: Id<"_storage">;
+    audioStorageId?: Id<"_storage">;
     authorImageUrl: string;
     authorId: string;
     category: string;
@@ -65,9 +65,9 @@ export interface CarouselProps {
 
 export interface AudioProps {
     title: string;
-    audioUrl: string;
+    audioUrl?: string;
     author: string;
-    imageUrl: string;
+    imageUrl?: string;
     podcastId: string;
 };
 

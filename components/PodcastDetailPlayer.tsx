@@ -44,7 +44,7 @@ const PodcastDetailPlayer = ({
     
     const handleDelete = async () => {
         try {
-            await deletePodcast({ podcastId, imageStorageId, audioStorageId });
+            await deletePodcast({ podcastId, imageStorageId: imageStorageId!, audioStorageId: audioStorageId! });
             toast({
                 title: "موسیقی حذف شد"
             });
