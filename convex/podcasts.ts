@@ -54,7 +54,7 @@ export const getTrendingPodcast = query({
     handler: async (ctx) => {
         const podcasts = await ctx.db.query('podcasts').collect();
 
-        return podcasts.sort((a, b) => b.views - a.views).slice(0, 4);
+        return podcasts.sort((a, b) => b.views - a.views).slice(0, 6);
     }
 });
 
