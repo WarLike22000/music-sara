@@ -8,7 +8,6 @@ import Carousel from "./Carousel";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
-import LoaderSpinner from "./LoaderSpinner";
 
 const RightSidebar = () => {
 
@@ -16,10 +15,10 @@ const RightSidebar = () => {
     const topPodcasters = useQuery(api.users.getTopUserByPodcastCount);
     const router = useRouter();
     
-    if(!topPodcasters) return <LoaderSpinner />
+    if(!topPodcasters) return
     
     return ( 
-        <section className="sticky left-0 top-0 flex w-[310px] flex-col overflow-y-hidden border-none bg-black-1 px-[30px] pt-8 max-xl:hidden text-white-1">
+        <section className="sticky left-0 top-0 flex w-[310px] flex-col overflow-y-auto border-none bg-black-1 px-[30px] pt-8 max-xl:hidden text-white-1 ">
             <SignedIn>
                 <Link href={`/profile/${user?.id}`} className="flex gap-3 pb-12">
                     <UserButton />
@@ -39,7 +38,7 @@ const RightSidebar = () => {
                 
             </SignedIn>
 
-            <section>
+            <section className="flex flex-col gap-5">
                 <Header headerTitle="پیشنهادی" />
                 <Carousel fansLikeDetail={topPodcasters!} />
             </section>

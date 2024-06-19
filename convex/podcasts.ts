@@ -54,7 +54,7 @@ export const getTrendingPodcast = query({
     handler: async (ctx) => {
         const podcasts = await ctx.db.query('podcasts').collect();
 
-        return podcasts;
+        return podcasts.sort((a, b) => b.views - a.views).slice(0, 4);
     }
 });
 
@@ -102,5 +102,60 @@ export const deletePodcast = mutation({
         await ctx.storage.delete(args.imageStorageId);
         await ctx.storage.delete(args.audioStorageId);
         return await ctx.db.delete(args.podcastId);
+    }
+});
+
+export const getPodcastBySearch = query({
+    args: {
+        search: v.string(),
+    },
+    handler: async (ctx, args) => {
+        if(args.search === "") {
+            return await ctx.db.query("podcasts").order("desc").collect();
+        };
+
+        const authorSearch = await ctx.db
+            .query("podcasts")
+            .withSearchIndex("search_author", (q) => q.search("author", args.search))
+            .take(10);
+
+        if(authorSearch.length > 0) {
+            return authorSearch;
+        };
+
+        const titleSearch = await ctx.db
+            .query("podcasts")
+            .withSearchIndex("search_title", (q) => q.search("podcastTitle", args.search))
+            .take(10);
+
+        if(titleSearch.length > 0) {
+            return titleSearch;
+        };
+
+        return await ctx.db
+            .query("podcasts")
+            .withSearchIndex("search_body", (q) => q.search("podcastDescription", args.search))
+            .take(10);
+    },
+});
+
+export const getPodcastByAuthorId = query({
+    args: {
+        authorId: v.string(),
+    },
+    handler: async (ctx, args) => {
+        const podcasts = await ctx.db
+            .query("podcasts")
+            .filter((q) => q.eq(q.field('authorId'), args.authorId))
+            .collect()
+
+        const totalListener = podcasts.reduce(
+            (sum, podcast) => sum + podcast.views, 0
+        );
+
+        return {
+            podcasts,
+            listeners: totalListener,
+        }
     }
 });

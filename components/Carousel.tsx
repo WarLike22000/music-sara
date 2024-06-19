@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback } from 'react'
-import { EmblaOptionsType, EmblaCarouselType } from 'embla-carousel'
+import { EmblaCarouselType } from 'embla-carousel'
 import { DotButton, useDotButton } from './EmblaCarouselDotButton';
 import Autoplay from 'embla-carousel-autoplay'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -44,7 +44,7 @@ const EmblaCarousel = ({
   return (
     <section className="flex w-full flex-col gap-4 overflow-hidden" dir="rtl" ref={emblaRef}>
 
-      <div className="flex">
+      <div className="flex select-none">
         {slides.slice(0, 5).map((item) => (
           <figure
             key={item._id}

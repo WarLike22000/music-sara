@@ -26,9 +26,9 @@ export interface PodcastCardProps {
 
 export  interface EmptyStateProps {
     title: string;
-    buttonLink: string;
-    buttonText: string;
-    search: boolean;
+    buttonLink?: string;
+    buttonText?: string;
+    search?: boolean;
 };
 
 export interface PodcastDetailPlayerProps {
@@ -74,4 +74,33 @@ export interface AudioProps {
 export interface AudioContextProvider {
     audio: AudioProps | undefined;
     setAudio: Dispatch<SetStateAction<AudioProps | undefined>>;
+};
+
+export interface PodcastProps {
+    _id: Id<"podcasts">;
+    _creationTime: number;
+    audioStorageId?: Id<"_storage">;
+    user: Id<"users">;
+    podcastTitle: string;
+    podcastDescription: string;
+    audioUrl?: string;
+    imageUrl?: string;
+    imageStorageId?: Id<"_storage">;
+    author: string;
+    authorId: string;
+    authorImageUrl: string;
+    audioDuration: number;
+    category: string;
+    views: number;
+}
+
+export interface ProfilePodcastProps {
+    podcasts: PodcastProps[];
+    listeners: number;
+}
+
+export interface ProfileCardProps {
+    podcastData: ProfilePodcastProps;
+    imageUrl:string;
+    userFirstName: string;
 };

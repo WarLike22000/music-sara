@@ -1,5 +1,6 @@
 "use client"
 
+import LoaderSpinner from "@/components/LoaderSpinner";
 import PodcastCard from "@/components/PodcastCard";
 import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
@@ -7,6 +8,8 @@ import { useQuery } from "convex/react";
 const Home = () => {
 
   const trendingPodcast = useQuery(api.podcasts.getTrendingPodcast);
+
+  if(!trendingPodcast) return <LoaderSpinner />
   
   return ( 
     <div className="mt-9 flex flex-col gap-9">
